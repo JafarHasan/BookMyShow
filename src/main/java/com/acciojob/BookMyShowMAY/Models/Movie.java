@@ -1,5 +1,6 @@
 package com.acciojob.BookMyShowMAY.Models;
 
+import com.acciojob.BookMyShowMAY.Enum.Genre;
 import com.acciojob.BookMyShowMAY.Enum.Language;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,7 +28,12 @@ public class Movie {
     private LocalDate releaseDate;
 
     @Enumerated(value = EnumType.STRING)
+
     private Language language;
+
+    @Enumerated(value=EnumType.STRING)
+    @Column(length = 20)
+    private Genre genre;
 
     private Double rating;
 }

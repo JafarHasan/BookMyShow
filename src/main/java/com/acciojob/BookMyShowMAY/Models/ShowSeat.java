@@ -8,22 +8,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "TheaterSeats")
+@Table(name = "Showseat")
 @Data
-@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class TheaterSeat {
+@Builder   //another method to make an obj of a class
+public class ShowSeat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer theaterId;
-
+    private Integer showSeatId;
     private String seatNo;
 
-    @Enumerated(value = EnumType.STRING)
+    @Enumerated(value=EnumType.STRING)
     private SeatType seatType;
+
+    private Boolean isBooked;
+
+    private Boolean isFoodAttached;
 
     @JoinColumn
     @ManyToOne
-    private Theater theater;
+    private Show show;
 }

@@ -1,5 +1,6 @@
 package com.acciojob.BookMyShowMAY.Requests;
 
+import com.acciojob.BookMyShowMAY.Enum.Genre;
 import com.acciojob.BookMyShowMAY.Enum.Language;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
@@ -19,5 +20,6 @@ public class AddMovieRequest {
     private Double duration;
     private LocalDate releaseDate;
     private Language language;
+    private Genre genre;
     private Double rating;
 }

@@ -8,13 +8,16 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.ArrayList;
+import java.util.List;
 
-@Entity
-@Table(name = "Show")
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "Shows") //show is a preserved keyword in SQL so i changed name show to 'shows'
 public class Show {
 
     @Id
@@ -32,4 +35,7 @@ public class Show {
     @JoinColumn
     @ManyToOne
     private Theater theater;
+
+    @OneToMany(mappedBy = "show",cascade = CascadeType.ALL)
+    private List<ShowSeat> showSeatList=new ArrayList<>();
 }
