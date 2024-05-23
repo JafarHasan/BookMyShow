@@ -4,8 +4,8 @@ package com.acciojob.BookMyShowMAY.Models;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.apache.catalina.User;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -13,13 +13,14 @@ import java.time.LocalTime;
 @Entity
 @Table(name = "tickets")
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Ticket {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer ticketId; //auto generated
+    @GeneratedValue(strategy = GenerationType.UUID)
+    private String ticketId; //auto generated
 
     private LocalDate showDate; //will be taken from show class
 
@@ -31,12 +32,14 @@ public class Ticket {
 
     private Integer totalAmt;
 
+    private String bookedSeats;
+
     @JoinColumn
     @ManyToOne
     private Show show;  //many tickets for one show
 
-//    @JoinColumn
-//    @ManyToOne
-//    private User user; //many tickets booked by one user
+    @JoinColumn
+    @ManyToOne
+    private User user; //many tickets booked by one user
 
 }

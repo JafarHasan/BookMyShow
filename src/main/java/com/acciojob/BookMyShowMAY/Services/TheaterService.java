@@ -112,6 +112,6 @@ public class TheaterService {
 
         //save all the generated Theaterseats into DB
         theaterSeatRepository.saveAll(theaterSeatList);
-        return "Theater Seats associated";
+        return "Theater Seats associated to theater_id="+theaterSeatRequest.getTheaterId();
     }
 }
