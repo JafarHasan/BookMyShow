@@ -1,8 +1,12 @@
 package com.acciojob.BookMyShowMAY.Services;
 
 import com.acciojob.BookMyShowMAY.Enum.SeatType;
+import com.acciojob.BookMyShowMAY.Models.Movie;
+import com.acciojob.BookMyShowMAY.Models.Show;
 import com.acciojob.BookMyShowMAY.Models.Theater;
 import com.acciojob.BookMyShowMAY.Models.TheaterSeat;
+import com.acciojob.BookMyShowMAY.Repositories.MovieRepository;
+import com.acciojob.BookMyShowMAY.Repositories.ShowRepository;
 import com.acciojob.BookMyShowMAY.Repositories.TheaterRepository;
 import com.acciojob.BookMyShowMAY.Repositories.TheaterSeatRepository;
 import com.acciojob.BookMyShowMAY.Requests.AddTheaterRequest;
@@ -21,6 +25,12 @@ public class TheaterService {
 
     @Autowired
     private TheaterSeatRepository theaterSeatRepository;
+
+    @Autowired
+    private MovieRepository movieRepository;
+
+    @Autowired
+    private ShowRepository showRepository;
 
     public String addTheater(AddTheaterRequest addTheaterRequest){
         Theater theater=Theater.builder().noOfScreen(addTheaterRequest.getNoOfScreen())
@@ -114,4 +124,26 @@ public class TheaterService {
         theaterSeatRepository.saveAll(theaterSeatList);
         return "Theater Seats associated to theater_id="+theaterSeatRequest.getTheaterId();
     }
+    public List<String> getAllTheatreNameByMovie(String movieName) {
+
+        //getting movie->movieId from movieName
+        Movie movie = movieRepository.findMovieByMovieName(movieName);
+        Integer movieId=movie.getMovieId();
+
+        //list of all shows corresponding to movieID
+        List<Show> showList=showRepository.findAllByMovie_MovieId(movieId);
+
+
+        List<String> theatreList=new ArrayList<>();
+
+        //getting Theatre entity->theaterName from showList
+        for(Show show:showList){
+            String theaterName=show.getTheater().getName();
+            if(!theatreList.contains(theaterName)){
+                theatreList.add(theaterName);
+            }
+        }
+        return theatreList;
+    }
+
 }

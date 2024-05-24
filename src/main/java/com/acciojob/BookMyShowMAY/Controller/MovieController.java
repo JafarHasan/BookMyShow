@@ -40,4 +40,10 @@ public class MovieController {
     List<String> movieList=movieServiceObj.topThreeMoviesBasedOnLanguage(language);
     return ResponseEntity.ok(movieList);
   }
+  @GetMapping("movies-List-by-theater-name/{name}")
+  public ResponseEntity<List<String>> getAllMovieListByTheaterName(@PathVariable("name") String name){
+
+    List<String> movieList=movieServiceObj.getAllMoviesByTheater(name);
+    return ResponseEntity.ok(movieList);
+  }
 }

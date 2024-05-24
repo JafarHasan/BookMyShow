@@ -3,7 +3,11 @@ package com.acciojob.BookMyShowMAY.Services;
 import com.acciojob.BookMyShowMAY.Enum.Genre;
 import com.acciojob.BookMyShowMAY.Enum.Language;
 import com.acciojob.BookMyShowMAY.Models.Movie;
+import com.acciojob.BookMyShowMAY.Models.Show;
+import com.acciojob.BookMyShowMAY.Models.Theater;
 import com.acciojob.BookMyShowMAY.Repositories.MovieRepository;
+import com.acciojob.BookMyShowMAY.Repositories.ShowRepository;
+import com.acciojob.BookMyShowMAY.Repositories.TheaterRepository;
 import com.acciojob.BookMyShowMAY.Requests.AddMovieRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,6 +20,12 @@ public class MovieService {
 
     @Autowired
     private MovieRepository movieRepository;
+
+    @Autowired
+    private ShowRepository showRepository;
+
+    @Autowired
+    private TheaterRepository theaterRepository;
 
     public String addMovie(AddMovieRequest movieRequest){
 
@@ -69,5 +79,24 @@ public class MovieService {
             no++;
         }
         return ansList;
+    }
+    public List<String> getAllMoviesByTheater(String theaterName){
+
+
+        Theater theater=theaterRepository.findTheaterByName(theaterName);
+        Integer theaterId=theater.getTheaterId();
+
+
+        List<Show> showList=showRepository.findAllByTheater_TheaterId(theaterId);
+
+
+        List<String> movieList=new ArrayList<>();
+        for(Show show:showList){
+            String movieName=show.getMovie().getMovieName();
+            if(!movieList.contains(movieName)){
+                movieList.add(movieName);
+            }
+        }
+        return movieList;
     }
 }
