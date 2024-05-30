@@ -6,10 +6,12 @@ import com.acciojob.BookMyShowMAY.Repositories.ShowRepository;
 import com.acciojob.BookMyShowMAY.Repositories.ShowSeatRepository;
 import com.acciojob.BookMyShowMAY.Repositories.TheaterRepository;
 import com.acciojob.BookMyShowMAY.Requests.AddShowRequest;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -59,5 +61,42 @@ public class ShowService {
 
         showSeatRepository.saveAll(showSeatList);
         return "Show saved with id="+show.getShowId();
+    }
+
+    public List<Show> findAllShowByDate(Date date,Integer theaterId){
+        List<Show> showList=showRepository.findAllByDateAndTheaterId(date,theaterId);
+        return showList;
+
+
+
+
+
+
+
+
+
+
+
+
+
+//        Integer totalAmt=0;
+//        int cntClassicSeatBook=0;
+//        int cntPremiumSeatBook=0;
+//        for(Show show:showList){
+//            List<ShowSeat> showSeatList=show.getShowSeatList();
+//            for(ShowSeat showSeat:showSeatList){
+//                if(showSeat.getIsBooked()){
+//                    if(showSeat.getSeatType().equals("Classic")){
+//                        cntClassicSeatBook++;
+//                    }
+//                    else{
+//                        cntPremiumSeatBook++;
+//                    }
+//                }
+//            }
+//        }
+//        totalAmt=cntPremiumSeatBook*100+cntPremiumSeatBook*150;
+ //       System.out.println(totalAmt);
+
     }
 }
